@@ -5,8 +5,8 @@ if [ -r /etc/lsb-release ]; then
   distribution=$(grep "DISTRIB_ID" /etc/lsb-release | sed -e "s/^DISTRIB_ID=//")
   if [ $distribution = "Ubuntu" ]; then
     # Ubuntu
-    apt update
-    apt -y install automake bison build-essential git libevent-dev libncurses5-dev pkg-config
+    apt-get -qq update
+    apt-get -qq -y install automake bison build-essential git libevent-dev libncurses5-dev pkg-config
   fi
 elif [ -r /etc/centos-release ]; then
   # CentOS
@@ -24,11 +24,11 @@ else
 fi
 
 cd /tmp
-git clone --depth 1 https://github.com/tmux/tmux
+git clone --quiet --depth 1 https://github.com/tmux/tmux
 cd ./tmux/
 ./autogen.sh
 ./configure --prefix=/usr/local
-make
+make --quiet
 make install
 which tmux
 tmux -V
