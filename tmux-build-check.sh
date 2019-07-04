@@ -17,7 +17,7 @@ elif [ -r /etc/centos-release ]; then
     yum -q -y install libevent2-devel ncurses-devel
   elif [ "$(grep '^CentOS Linux release 7' /etc/centos-release)" ]; then
     # CentOS 7
-    yum -q -y install libevent-devel ncurses-devel
+    yum -q -y install libevent-devel ncurses-devel which
   fi
 else
   exit 1
