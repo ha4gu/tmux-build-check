@@ -12,18 +12,22 @@ if [ -r /etc/lsb-release ]; then
     exit 1
   fi
 elif [ -r /etc/centos-release ]; then
-  # CentOS
-  yum -q check-update || [ $? -eq 100 ]
-  yum -q -y groupinstall "Development Tools"
   if [ "$(grep '^CentOS release 6' /etc/centos-release)" ]; then
     # CentOS 6
+    yum -q check-update || [ $? -eq 100 ]
+    yum -q -y groupinstall "Development Tools"
     yum -q -y install libevent2-devel ncurses-devel
   elif [ "$(grep '^CentOS Linux release 7' /etc/centos-release)" ]; then
     # CentOS 7
+    yum -q check-update || [ $? -eq 100 ]
+    yum -q -y groupinstall "Development Tools"
     yum -q -y install libevent-devel ncurses-devel which
   elif [ "$(grep '^CentOS Linux release 8' /etc/centos-release)" ]; then
     # CentOS 8
-    yum -q -y install libevent-devel ncurses-devel which
+    rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+    dnf -q check-update || [ $? -eq 100 ]
+    dnf -q -y group install "Development Tools"
+    dnf -q -y install libevent-devel ncurses-devel which
   else
     echo "[ERROR] Unknown distribution (seems to be rhel-related one)."
     exit 1
