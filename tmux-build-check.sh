@@ -5,6 +5,7 @@ if [ -r /etc/lsb-release ]; then
   distribution=$(grep "DISTRIB_ID" /etc/lsb-release | sed -e "s/^DISTRIB_ID=//")
   if [ $distribution = "Ubuntu" ]; then
     # Ubuntu
+    export DEBIAN_FRONTEND=noninteractive
     apt-get -qq update
     apt-get -qq -y install automake bison build-essential git libevent-dev libncurses5-dev pkg-config
   else
